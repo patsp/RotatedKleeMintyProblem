@@ -5,6 +5,6 @@ Considering the domain of constrained optimization, the number of available benc
 
 This repository provides a Matlab implementation of the benchmarking environment introduced in the paper:
 "A Linear Constrained Optimization Benchmark For Probabilistic Search Algorithms: The Rotated Klee-Minty Problem"
-by M. Hellwig and H.-G. Beyer, preprint available at \url{http://arxiv.org/paperID}.
+by M. Hellwig and H.-G. Beyer, preprint available at \url{avialable soon}.
 
 Please contact me, for the suggestion of improvements, modifications, or in case you discover any implementation issues.
