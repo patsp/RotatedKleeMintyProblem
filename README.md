@@ -7,4 +7,6 @@ This repository provides a Matlab implementation of the benchmarking environment
 "A Linear Constrained Optimization Benchmark For Probabilistic Search Algorithms: The Rotated Klee-Minty Problem"
 by M. Hellwig and H.-G. Beyer, preprint available at \url{avialable soon}.
 
-Please contact me, for the suggestion of improvements, modifications, or in case you discover any implementation issues.
+The reporting of implementation issues as well as suggestions for improvement (or modification) are welcome. 
+Please contact 
+hemi_at_fhv_dot_at
