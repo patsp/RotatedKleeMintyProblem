@@ -71,7 +71,7 @@ for j=1:length(DIMENSION)
     
     besti       = rankingL(1);
     worsti      = rankingL(problem.number_of_runs);
-    cmedi       = rankingL((problem.number_of_runs+1)/2);
+    cmedi       = rankingL(floor((problem.number_of_runs+1)/2));
     med         = List(cmedi,2);
     cmed        = List(cmedi,3);
     
