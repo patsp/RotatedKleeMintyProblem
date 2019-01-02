@@ -55,9 +55,16 @@ for j=1:length(DIMENSION)
         end
             
     end
-    
+
+    FEperTargetBootstrapped = bootstrap(problem, ...
+                                        FEperTarget, ...
+                                        1000, ...
+                                        1000, ...
+                                        problem.budget);
+
     % Derive ECDF data from all observed runs
-    ecdf_data{j} = assessRotatedKleeMintyPerformance(problem,FEperTarget);
+    ecdf_data{j} = assessRotatedKleeMintyPerformance(problem, ...
+                                                     FEperTargetBootstrapped);
     
     % Gather statistics for algorithm assessment
     rankingL    = lex_sort(List(:,2),List(:,3));
