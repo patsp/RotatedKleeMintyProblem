@@ -12,8 +12,8 @@ foldername = [date '_rotKM_RS_' input.strategy];
 
 for j=1:length(DIMENSION)
 dim  = DIMENSION(j);
-Eint1(:,j)  = ecdf_data{j}.IntervalFevals./dim;
-Etar1(:,j)  = ecdf_data{j}.TargetsPerFevals./(problem.number_of_runs*problem.TarNum);
+Eint1{j}  = ecdf_data{j}.IntervalFevals./dim;
+Etar1{j}  = ecdf_data{j}.TargetsPerFevals./(problem.number_of_runs*problem.TarNum);
 eval(['Stats(' num2str(j) ',:) = StatsN' num2str(DIMENSION(j)) ';']);
 end
 
@@ -28,7 +28,7 @@ p1=figure;
         name = ['N' num2str(dim)];
         % for each dimension plot the ratio of reached targets against the
         % needed function evaluations
-        eval(['h' num2str(j) '=plot(log(Eint1(:,j))/log(10),Etar1(:,j),dis,name);'])
+        eval(['h' num2str(j) '=plot(log(Eint1{j})/log(10),Etar1{j},dis,name);'])
         hold on
     end
     hleg = legend('show');
