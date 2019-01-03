@@ -16,7 +16,6 @@ global best
 DIMENSION=[2,3,5,10]; %,20,40];
 
 for j=1:length(DIMENSION)
- 
     
     %% Problem initialization
     target_flag         = 0;
@@ -56,16 +55,6 @@ for j=1:length(DIMENSION)
             
     end
 
-    FEperTargetBootstrapped = bootstrap(problem, ...
-                                        FEperTarget, ...
-                                        1000, ...
-                                        1000, ...
-                                        problem.budget);
-
-    % Derive ECDF data from all observed runs
-    ecdf_data{j} = assessRotatedKleeMintyPerformance(problem, ...
-                                                     FEperTargetBootstrapped);
-    
     % Gather statistics for algorithm assessment
     rankingL    = lex_sort(List(:,2),List(:,3));
     
@@ -105,10 +94,22 @@ for j=1:length(DIMENSION)
     
     % Vector of gathered statistics from all independent runs
     eval(['StatsN' num2str(input.dim) '= [input.dim  FOPT List(besti,2) med cmed (FOPT-med) FR mean(List(:,4)) mean(List(:,5)) std(List(:,4))];']);
-       
-     clear FES
-     clear FIT
-     clear CON
+
+    problem.number_of_runs = 1000;
+    FEperTargetBootstrapped = bootstrap(problem, ...
+                                        FEperTarget, ...
+                                        problem.number_of_runs, ...
+                                        1000, ...
+                                        problem.budget);
+
+    % Derive ECDF data from all observed runs
+    ecdf_data{j} = assessRotatedKleeMintyPerformance(problem, ...
+                                                     FEperTargetBootstrapped);
+
+
+    clear FES
+    clear FIT
+    clear CON
 end
 
 % Create ECDF plots and Tables according to the recommendations
