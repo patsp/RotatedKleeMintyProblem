@@ -26,6 +26,7 @@ function FEperTargetBootstrapped = bootstrap(problem, ...
             success = true;
             runlengthSum = runlengthSum + runlength;
           end
+          numTries = numTries + 1;
         end
         FEperTargetBootstrapped(targetIdx, 3 + s - 1) = runlengthSum;
         % ensure that more difficult target is not reached with
