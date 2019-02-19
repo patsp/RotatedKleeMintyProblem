@@ -3,7 +3,7 @@
 clear all, clc
 
 % 2,3,5,10,20,40
-DIMENSION=[2,3,5,10,20,40];
+DIMENSION=[2,3];%,5,10,20,40];
 
 
 global target_flag
