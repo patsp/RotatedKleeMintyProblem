@@ -5,12 +5,12 @@ clear all, clc
 % 2,3,5,10,20,40
 DIMENSION=[2,3];%,5,10,20,40];
 
-
 global target_flag
 global T
 global Targets
 global consumed 
 global best
+global global_best_log
 
 for j=1:length(DIMENSION)
     target_flag = 0;
@@ -39,13 +39,17 @@ for j=1:length(DIMENSION)
         
         best        = [];
         consumed    = 0;
-        eval(['[out, global_best]=' input.strategy '(problem,problem.budget,problem.lower_bounds,problem.upper_bounds,input);']);
+        eval(['[~, ~]=' input.strategy '(problem,problem.budget,problem.lower_bounds,problem.upper_bounds,input);']);
+        global_best.y = global_best_log;
+        global_best.val = best(1);
+        global_best.conv = best(2);
         dyn.fev = [consumed];
         dyn.fit = [global_best.val];
         dyn.conv = [global_best.conv];
         List(k,:)=[dim, global_best.val, global_best.conv, norm(global_best.y-problem.t), dyn.fev(end)];
         
-        GB{k}=global_best.y; 
+        GB{k}=global_best.y;
+        eval(['GlobalBestIndividual' num2str(dim) '{k}=GB{k};']);
         eval(['Dyn' num2str(dim) '{k}=dyn;']);
         ListT{k}=T;
         ListTargets{k}=Targets;
@@ -98,6 +102,11 @@ for j=1:length(DIMENSION)
     FIT(:,j) = FIT(:,j) ./ 15;
     CON(:,j) = CON(:,j) ./ 15;
 
+    problem.number_of_runs = 15;
+    ecdf_data_before_bootstrapping = ...
+    assessRotatedKleeMintyPerformance(problem, ...
+                                      FEperTarget);
+
     problem.number_of_runs = 1000;
     FEperTargetBootstrapped = bootstrap(problem, ...
                                         FEperTarget, ...
@@ -112,7 +121,7 @@ for j=1:length(DIMENSION)
         if efn ~= 7
             mkdir(foldername);
         end
-    save([foldername '/rotKM_' input.strategy '_Dim' num2str(dim) '.mat'],'problem','input',['Dyn' num2str(dim)],'FES','FIT','CON','ListT','ListTargets','ecdf_data',['StatsN' num2str(dim)] ,'-v7')
+    save([foldername '/rotKM_' input.strategy '_Dim' num2str(dim) '.mat'],'problem','input',['Dyn' num2str(dim)],['GlobalBestIndividual' num2str(dim)],'FES','FIT','CON','ListT','ListTargets','ecdf_data','ecdf_data_before_bootstrapping',['StatsN' num2str(dim)] ,'-v7')
     
      clear FES
      clear FIT
