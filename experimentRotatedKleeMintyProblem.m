@@ -2,6 +2,9 @@
 
 clear all, clc
 
+addpath(['./lcCMSA-ES/']);
+addpath(['./epsMAg-ES/']);
+
 % 2,3,5,10,20,40
 DIMENSION=[2,3];%,5,10,20,40];
 
@@ -29,6 +32,8 @@ for j=1:length(DIMENSION)
     %% USER specified INPUT parameter of the individual SOLVER
     % specify SOLVER
     input.strategy      = 'RandS';
+    %input.strategy      = 'runlcCMSAESOnRotatedKleeMintyProblem';
+    %input.strategy      = 'runepsMAgESOnRotatedKleeMintyProblem';
     
     %% start EXPERIMENTAL runs
     number_of_runs = 15;
